@@ -1,0 +1,10 @@
+<ng-container *ngIf="showMovies">
+  <ul *ngFor="let movie of movies; let i = index;">
+    <li *ngIf=" i === 0" appFirstMovie>
+     {{movie}}
+    </li>
+    <li *ngIf=" i !== 0">
+      {{movie}}
+    </li>
+  </ul>
+</ng-container>
