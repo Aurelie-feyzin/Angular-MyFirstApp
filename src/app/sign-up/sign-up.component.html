@@ -1,7 +1,33 @@
-<h1>WCS : Quête 01 - Angular - Les Composants </h1>
-<h2> email : {{ email }}</h2>
-<div>
-  <label>email:
-    <input [(ngModel)]="email" name="email" />
-  </label>
+<h1>WCS : Quête 06 - Angular - Template driven forms</h1>
+<ng-container *ngIf="!submitted">
+<form (ngSubmit)="signUpForm.valid && onSubmit()" #signUpForm="ngForm">
+    <div>
+        <label for="name-user">Name</label>
+        <input name="name-user" type="text" [(ngModel)]="user.name" #name="ngModel" required
+               minlength="4" maxlength="25">
+    </div>
+    <div *ngIf="name.errors && submitted">
+        <span *ngIf="name.errors.required">Le champs name est requis</span>
+        <span *ngIf="name.errors.minlength">Le champ user ne doit pas faire moins de 4 caractères</span>
+        <span *ngIf="name.errors.maxlength">Le champ user ne doit pas dépasser 25 caractères</span>
+    </div>
+    <div>
+        <label for="email-user">email</label>
+        <input name="email-user" [(ngModel)]="user.email" #email="ngModel" type="email" required
+               email>
+    </div>
+    <div *ngIf="email.errors && submitted">
+        <span *ngIf="email.errors.required">Le champs email est requis</span>
+        <span *ngIf="email.errors.max">La quantité maximal doit être inférieur à 5</span>
+    </div>
+    <div>
+        <button type="submit" [disabled]="!signUpForm.form.valid">Submit</button>
+    </div>
+</form>
+</ng-container>
+<div *ngIf="submitted">
+    <p>Le formulaire à bien été validé :<br/>
+        name : {{user.name}}<br/>
+        email : {{user.email}}</p>
+    <button type="reset" (click)="submitted = false">Reset</button>
 </div>
